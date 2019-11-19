@@ -1,0 +1,20 @@
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: pod-annotate-webhook
+  labels:
+    app: pod-annotate-webhook
+    kind: mutator
+webhooks:
+  - name: pod-annotate-webhook.slok.xyz
+    clientConfig:
+      service:
+        name: pod-annotate-webhook
+        namespace: vault
+        path: "/mutate"
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUN6akNDQWJZQ0NRRFVHMThpU1dzbm9UQU5CZ2txaGtpRzl3MEJBUXNGQURBcE1TY3dKUVlEVlFRRERCNXcKYjJRdFlXNXViM1JoZEdVdGQyVmlhRzl2YXk1MllYVnNkQzV6ZG1Nd0hoY05NVGt4TVRBMU1EQTFPREl4V2hjTgpNakF4TVRBME1EQTFPREl4V2pBcE1TY3dKUVlEVlFRRERCNXdiMlF0WVc1dWIzUmhkR1V0ZDJWaWFHOXZheTUyCllYVnNkQzV6ZG1Nd2dnRWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUJEd0F3Z2dFS0FvSUJBUUM0R21vaWdpY3kKblZpd2Frb3NodzBuS2U4Wjh5R2hEbU5KazVPaFVHdGJ5ZGlxNVhJQjZRR1N2K3lGSkJzeHhCT1RtQko4QU9QagpsV1dGcnFOYWpNK0JNblJxQUhGZlpKR3VZRzh3bDdEZVBHU2cvK2V0QWVzU2xpVXNVSnhEQ2UxcXMvUkVzQzc5CnVaamVCb2hsQXVZS3NXeENjdHRLLzlqNjZicWJEajgrVUM4V2pRaFdoWUpYL3pUZUUzTVlFbkttcmhjN0lUWi8KRGxobWFoUXo4ZzZXYkFTc0xPOGU0Uy8rczBtbHpNZVpSM2l0c3pOeGhEU05tWDQwRDgwWGk0aXNlZVBmeDdmUQpFYVFmenVkM3hmRi9nYkoySzkxbmpaMnliL0M1aFZTY0lOOTZ0ZDVSdEdiSGlxMU1sb2ZveGVnODFpLzV3cDRRCnRJOHVZTlkxZDZ3YkFnTUJBQUV3RFFZSktvWklodmNOQVFFTEJRQURnZ0VCQUlLYWhsanY1QVF6NDE2d3ZnTysKM3hYWGxrTkFEaklpTC90TmxINmFPNWV6VVVyeTR0VUlHSU4rMDdLTkFoYmRoT08zMi83c3BXOWFBZzJYb29aTgpDQWp5R052aXp5NXNMaVBqV20zVVRSRWI5b0JMZW5jNkhwMUY1dW5NZnJLc0lvRXg2bS9uSU4yOVBmaTU5UTcvCkdWbFV3dFcxUFpQWXlqRThQRVBDaVBkdlRucWJ6ZVhSenZGWm1QOG5uYTZzaEk2OVYxVXlEb3JjeFlxbkNydHEKSjhkbTVMTTNLdEkwNmdRWG1RdWQyU1ZmUmFJWGoxenI4UUwwUUJNaXhDOHpnUnZNVndmVXJSS20rcUduVlVGaAp1aUhZSVp2eWhaYWNrazZKbk1GZlZnWlExclJZNEI5TmRBbVovaFErNlEwdm5uSGNWSWhFUURHNzdnSHFvR3lJCjh2OD0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+    rules:
+      - operations: [ "CREATE" ]
+        apiGroups: [""]
+        apiVersions: ["v1"]
+        resources: ["pods"]
